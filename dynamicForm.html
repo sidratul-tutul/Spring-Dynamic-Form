@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:number="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Form</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+   <div class="container">
+    <div class="jumbotron">
+        <h1>FIELD NUMBER <p th:text="${filedNumber.num}" /> </h1>
+    </div>
+
+       <div class="container">
+
+           <!--/*@thymesVar id="fieldDatas" type=""*/-->
+           <!--/*@thymesVar id="formAttribute" type=""*/-->
+           <form class="form-horizontal" role="form" th:action="@{/userform}" th:object="${wrapper}" method="post">
+          <table class="table table-striped border">
+              <thead>
+               <tr>
+                    <th> No </th>
+                    <th> Field Name </th>
+                    <th> Field Type </th>
+                    <th> Field Attribute</th>
+                    <th> Comment</th>
+
+
+               </tr>
+              </thead>
+
+              <tbody>
+
+
+       <!--/*@thymesVar id="fieldDataList" type=""*/-->
+       <tr th:each="currentFieldData,stat : ${wrapper.fieldDataList}">
+
+           <div class="row">
+               <div class="col-1">
+                   <td> <p th:text="${currentFieldData.getFiledId()}" /></td>
+               </div>
+
+
+               <div class="form-group">
+                 <div class="col-3">
+                   <td>
+
+                      <label for="fieldname">Field Name</label>
+                              <!--/*@thymesVar id="fieldData" type=""*/-->
+                              <input class="form-control" type="text" id="fieldname" autofocus="autofocus"
+                                     th:name="|currentFieldData[${stat.index}].filedName|"
+                                     th:value="${currentFieldData.getFiledName()}"
+                              />
+                      </td>
+                 </div>
+               </div>
+
+               <div class="form-group">
+                   <div class="col-3">
+                     <td>
+                         <div th:each="RadioEntity : ${radioEntityList}">
+
+                             <ul>
+                                 <li>
+                                     <!--/*@thymesVar id="radioFieldId" type="java"*/-->
+                                     <input type="radio" th:field="*{radioFieldType}"   th:value="${RadioEntity.radioFieldName}" />
+                                     <label th:for="${RadioEntity.radioFieldName}" th:text="${RadioEntity.radioFieldName}"></label>
+                                 </li>
+                             </ul>
+                              <!--/*@thymesVar id="radioFieldName" type="java"*/-->
+                              <!--<span th:text="${RadioEntity.radioFieldName}"></span>-->
+                         </div>
+
+                         <!--
+                         <tr th:each="childArrays:${parentArrays}">
+  <td>
+    <div th:each="childElement:${childArrays}">
+      <span th:text="${childElement}"></span>
+    </div>
+  </td>
+</tr>
+                         -->
+
+
+                        <!-- <ul>
+                             <p th:text="${currentFieldData.getFiledId()}" />
+                             &lt;!&ndash;/*@thymesVar id="radioEntityList" type="java"*/&ndash;&gt;
+
+
+                             <li th:each="RadioEntity : ${radioEntityList}">
+
+
+                                   &lt;!&ndash;/*@thymesVar id="radioFieldId" type="java"*/&ndash;&gt;
+                                   <input type="checkbox" th:field="${currentFieldData.radioFieldType}" th:value="${RadioEntity.radioFieldId}" />
+                                   <label th:text="${RadioEntity.radioFieldName}"></label>
+
+                             </li>
+                         </ul>-->
+
+                     </td>
+                   </div>
+               </div>
+
+
+
+            </div>
+           </tr>
+
+
+   <!--             <tr th:each="number: ${#numbers.sequence(0,filedNumber.num-1)}">
+                  <div class="row">
+                   <div class="col-1">
+                       <td><span th:text="${number+1}"></span> </td>
+                   </div>
+
+                      <div class="form-group">
+                      <div class="col-3">
+                          <td>
+                              <label for="fieldname">Field Name</label>
+                              &lt;!&ndash;/*@thymesVar id="fieldData" type=""*/&ndash;&gt;
+                              <input class="form-control" th:value="${fieldData.fieldName}"  type="text" id="fieldname" name="filedName" autofocus="autofocus"/>
+                          </td>
+                      </div>
+                      </div>
+
+
+                      <div class="form-group">
+                      <div class="col-3">
+                          <td>
+
+                            &lt;!&ndash;  <ul>
+
+                                  &lt;!&ndash;/*@thymesVar id="radioFieldAllType" type=""*/&ndash;&gt;
+                                  <li th:each="radioValue: ${radioFieldAllType}">
+
+                                      <input type="radio"
+                                             th:field="${fieldDataCollection.getFieldDatas().get()}"
+                                             th:value="${radioValue}" />
+                                      <label
+                                              th:for="${#ids.prev('radioFieldType')}"
+                                              th:text="${radioValue}"></label>
+                                  </li>
+                              </ul>&ndash;&gt;
+                             &lt;!&ndash;
+
+                             <div class="radio">
+                                  <label><input type="radio" name="optradio" checked>&nbsp; &nbsp;Text</label>
+                              </div>
+
+                              <div class="radio">
+                                  <label><input type="radio" name="optradio" checked>&nbsp; &nbsp;Number</label>
+                              </div>
+
+                              <div class="radio">
+                                  <label><input type="radio" name="optradio">&nbsp; &nbsp;Email</label>
+                              </div>
+
+                              <div class="radio">
+                                  <label><input type="radio" name="optradio">&nbsp; &nbsp;Password</label>
+                              </div>
+
+                              <div class="radio">
+                                  <label><input type="radio" name="optradio">&nbsp; &nbsp;File</label>
+                              </div>
+
+                              <div class="radio">
+                                  <label><input type="radio" name="optradio">&nbsp; &nbsp;Textarea</label>
+                              </div>
+
+                              <div class="radio disabled">
+                                  <label><input type="radio" name="optradio" disabled>&nbsp; &nbsp;Disabled</label>
+                              </div>&ndash;&gt;
+
+                          </td>
+
+                      </div>
+                      </div>
+
+
+                      <div class="col-3">
+                          <td>
+                              <div class="checkbox">
+                                  <label><input type="checkbox" value="">&nbsp; &nbsp;Not Null</label>
+                              </div>
+                              <div class="checkbox">
+                                  <label><input type="checkbox" value="">&nbsp; &nbsp;Example</label>
+                              </div>
+                              <div class="checkbox disabled">
+                                  <label><input type="checkbox" value="" disabled>&nbsp; &nbsp;Disabled</label>
+                              </div>
+
+                          </td>
+                      </div>
+
+                      <div class="form-group">
+                      <div class="col-2">
+                          <td>
+                              <div class="form-group">
+                                  <label for="comment">Comment:</label>
+                                  <textarea class="form-control" rows="3" id="comment"></textarea>
+                              </div>
+                          </td>
+
+                      </div>
+                      </div>
+                  </div>
+
+                </tr>-->
+
+              </tbody>
+
+              <tfoot>
+              <tr>
+              <td colspan="5">
+              <button  type="submit" class="btn btn-primary btn-block">Register</button>
+              </td>
+              </tr>
+              </tfoot>
+          </table>
+
+
+               </form>
+      </div>
+
+<!--
+      // number print korar
+
+          <p th:each="number: ${#numbers.sequence(0,2)}">
+              <span th:text="${number}"></span>
+          </p>
+-->
+
+<!--          <th:block th:each="i: ${#numbers.sequence(0, filedNumber.num - 1)}">
+              <button th:if="${filedNumber.num == i}" class="active">Dummy</button>
+              <button th:unless="${filedNumber.num == i}">Dummy</button>
+
+          </th:block>-->
+  </div>
+
+</body>
+</html>

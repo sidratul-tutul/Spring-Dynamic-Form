@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <style type="text/css">
+        .heading{
+            margin-left: 25px;
+        }
+
+        .btn-custom{
+            font-size: 20px;
+            margin-right: 10px;
+            color: green;
+            background-color: white;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 10px;
+        }
+
+        .btn-danger
+
+        {
+
+            background-color: white;
+
+            background-repeat: repeat-x;
+
+            background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+
+            background-image: linear-gradient(#ffffff, #ffffff);
+
+            border-color: white;
+
+            color: green;
+
+            text-shadow: white;
+
+        }
+
+        .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open .dropdown-toggle.btn-danger {
+
+            background-color: green;
+
+            background-repeat: repeat-x;
+
+            background-image: linear-gradient(#228B22, #228B22);
+
+            border-color: green;
+
+            color: white;
+
+            text-shadow: 0 1px 1px rgb(255,255,255);
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+   <div class="container">
+     <div class="container-fluid">
+
+
+
+         <nav class="navbar navbar-dark bg-success">
+             <a class="navbar-brand" href="#">
+                 <div class="heading">
+                  <img th:src="${path}" height="60px" width="80px" class="d-inline-block align-top" alt="">
+                  <h4 class="text-center">Forms</h4>
+                 </div>
+             </a>
+
+             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                 <button type="button" class="btn btn-custom">Home</button>
+                 <button type="button" class="btn btn-custom">About</button>
+
+                 <div class="btn-group" role="group">
+                     <button id="btnGroupDrop1" type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Dropdown
+                     </button>
+                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                         <a class="dropdown-item" href="#">Dropdown link</a>
+                         <a class="dropdown-item" href="#">Dropdown link</a>
+                     </div>
+                 </div>
+             </div>
+
+
+                 <form class="form-inline my-2 my-lg-0">
+                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                     <button class="btn btn-danger my-2 my-sm-0" type="submit"><h6>Search</h6></button>
+
+                 </form>
+
+         </nav>
+        <div class="jumbotron">
+            <h1 class="text-center"> Create Your Own Form. </h1>
+            <hr>
+            <br>
+            <br>
+
+            <div class="container-fluid">
+
+                <!--/*@thymesVar id="fieldNumber" type=""*/-->
+                <form class="form-horizontal" role="form" th:action="@{/fieldmaker}" th:object="${fieldNumber}" method="post" >
+
+                    <div class="form-group-inline">
+                       <label for="num">Number of field</label>
+                       <input class="form-control"  type="number" id="num" name="num" placeholder="Enter number of field for form" autofocus="autofocus"/>
+                   </div>
+
+                    <br>
+                    <button  type="submit" class="btn btn-primary btn-block">Send</button>
+                </form>
+            </div>
+        </div>
+
+
+
+
+     </div>
+
+   </div>
+
+</body>
+</html>
